@@ -20,7 +20,7 @@ module.exports = function (content) {
   const callback = this.async();
 
   const classes = getClasses(content);
-  const dtsPath = fp.join(fp.dirname(options.path || this.resourcePath), `${fp.basename(this.resourcePath)}.d.ts`);
+  const dtsPath = fp.join(options.path || fp.dirname(this.resourcePath), `${fp.basename(this.resourcePath)}.d.ts`);
 
   if (options.dropEmptyFile && classes.length === 0) {
     if (fs.existsSync(dtsPath)) {

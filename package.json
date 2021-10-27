@@ -1,6 +1,6 @@
 {
   "name": "@swift-school/dts-css-modules-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "webpack loader to generate typings for css modules",
   "dependencies": {
     "loader-utils": "^2.0.0"
