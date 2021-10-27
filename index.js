@@ -12,14 +12,15 @@ module.exports = function (content) {
    *   banner?: string,
    *   namedExport?: boolean,
    *   customTypings?: (classes: string[]) => string,
-   *   dropEmptyFile?: boolean
+   *   dropEmptyFile?: boolean,
+   *   path?: string
    * }}
    */
   const options = loaderUtils.getOptions(this) || {};
   const callback = this.async();
 
   const classes = getClasses(content);
-  const dtsPath = getDtsPath(this.resourcePath);
+  const dtsPath = fp.join(fp.dirname(options.path || this.resourcePath), `${fp.basename(this.resourcePath)}.d.ts`);
 
   if (options.dropEmptyFile && classes.length === 0) {
     if (fs.existsSync(dtsPath)) {
@@ -102,13 +103,6 @@ function getClasses(content) {
 
 const classesRegex = /"([^"\\/;()\n]+)":/g;
 const classesOfNamedExportRegex = /export (?:var|const) (\w+) =/g;
-
-/**
- * @param {string} [path]
- */
-function getDtsPath(path) {
-  return fp.join(fp.dirname(path), `${fp.basename(path)}.d.ts`);
-}
 
 /**
  * @param {string} [path]
